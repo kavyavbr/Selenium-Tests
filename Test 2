@@ -1,0 +1,35 @@
+//Test 1
+//To check the Status code is 200
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+//Test 2
+//To Check the response time is less than 300ms
+pm.test("Response time is less than 300ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(300);
+});
+
+//Test 3
+//To Check the Content Type
+pm.test("Content-Type header is present", () => {
+  pm.response.to.have.header("Content-Type");
+});
+
+//Test 4
+//To Parse a Response data
+pm.test("Parse YouTube ID", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData["links"]["youtube_id"]).to.eql("3pv01sSq44w");
+});
+
+//Test 5
+//To Test the Datatype of the response
+const jsonData = pm.response.json();
+pm.test("Test Data Type of body", () => {
+  pm.expect(jsonData).to.be.an("object");
+  pm.expect(jsonData["links"]["reddit"]["media"]).to.be.null;
+  pm.expect(jsonData.payloads).to.be.an("array");
+  pm.expect(jsonData.name).to.be.a("string");
+  pm.expect(jsonData.date_unix).to.be.a("number");
+});
