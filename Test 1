@@ -1,0 +1,65 @@
+package RoughPackage;
+
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+namespace Rough.Automation.Test
+{
+	public class Rough 
+	{
+
+		private static final String String = null;
+
+		[Test]
+		public static void main(String[] args) 
+		{	
+
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(1000, TimeUnit.MILLISECONDS);
+		driver.get("https://blazedemo.com/");
+		WebElement e = driver.findElement(By.xpath("/html/body/div[3]/form/select[1]"));
+		Select select = new Select(e);
+		select.selectByVisibleText("Philadelphia");
+		WebElement s = driver.findElement(By.xpath("/html/body/div[3]/form/select[2]"));
+		Select select1 = new Select(s);
+		select1.selectByVisibleText("London");
+		driver.findElement(By.xpath("/html/body/div[3]/form/div/input")).click();
+		driver.findElement(By.xpath("//*[@id=\"inputName\"]")).sendKeys("abc");
+		driver.findElement(By.xpath("//*[@id=\"address\"]")).sendKeys("mig-12,block C Bangalore");
+		driver.findElement(By.xpath("//*[@id=\"city\"]")).sendKeys("Bangalore");
+		driver.findElement(By.xpath("//*[@id=\"state\"]")).sendKeys("Karnataka");
+		driver.findElement(By.xpath("//*[@id=\"zipCode\"]")).sendKeys("123456");
+		WebElement e3 = driver.findElement(By.xpath("//*[@id=\"cardType\"]"));
+		Select select3 = new Select(e);
+		select.selectByVisibleText("VISA");
+		driver.findElement(By.xpath("//*[@id=\"creditCardNumber\"]")).sendKeys("1234");
+		driver.findElement(By.xpath("//*[@id=\"creditCardMonth\"]")).sendKeys("11");
+		driver.findElement(By.xpath("//*[@id=\"creditCardYear\"]")).sendKeys("2012");
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,350)", "100");
+		driver.findElement(By.xpath("/html/body/div[2]/form/div[11]/div/input"));
+		Set <String > s1= driver.getWindowHandles();
+		for(String set:s1)
+		{
+			String actual=driver.switchTo().window("1").getTitle();
+		}
+			
+			String expected= "Thank you for your purchase today!";
+		}
+
+		[TearDown]
+        	public void Close_Browser()
+        		{
+            		driver.Quit();
+        		}
+	}
+}
